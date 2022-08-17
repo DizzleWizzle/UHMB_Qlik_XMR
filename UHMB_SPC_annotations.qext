@@ -1,0 +1,20 @@
+{
+    "name": "UHMB SPC with recalcs",
+    "description": "UHMB SPC Chart Extension with Descriptive Text Boxes and recalculation of control limits",
+    "icon": "line-chart",
+    "type": "visualization",
+    "version": "1.0.0",
+    "author": "Dale Wright",
+    "homepage": "",
+    "keywords": "qlik-sense, visualization, SPC",
+    "license": "",
+    "repository": "",
+    "bundle": {
+        "id": "UHMB-bundle",
+        "name": "UHMB extensions",
+        "description": "This is a set of extensions built in-house at UHMB"
+    },
+    "dependencies": {
+        "qlik-sense": ">=3.0.x"
+    }
+}
