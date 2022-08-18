@@ -84,21 +84,21 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                                     defaultValue: "2000"
 
                                 },
-                                CLType: {
-                                    type: "string",
-                                    component: "dropdown",
-                                    label: "Control Limit Type",
-                                    ref: "CLType",
-                                    options: [{
-                                            value: "MR",
-                                            label: "Moving Range"
-                                        }, {
-                                            value: "SD",
-                                            label: "Standard Deviation"
-                                        }
-                                    ],
-                                    defaultValue: "MR"
-                                },
+                                // CLType: {
+                                //     type: "string",
+                                //     component: "dropdown",
+                                //     label: "Control Limit Type",
+                                //     ref: "CLType",
+                                //     options: [{
+                                //             value: "MR",
+                                //             label: "Moving Range"
+                                //         }, {
+                                //             value: "SD",
+                                //             label: "Standard Deviation"
+                                //         }
+                                //     ],
+                                //     defaultValue: "MR"
+                                // },
                                 CLUnder0: {
                                     ref: "ClUnderZero",
                                     type: "integer",
@@ -106,14 +106,14 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                                     expression: "optional",
                                     defaultValue: "1"
                                 },
-                                StndDev: {
-                                    ref: "CLStDev",
-                                    type: "string",
-                                    label: "Control Limit multiple",
-                                    expression: "optional",
-                                    defaultValue: "3"
+                                // StndDev: {
+                                //     ref: "CLStDev",
+                                //     type: "string",
+                                //     label: "Control Limit multiple",
+                                //     expression: "optional",
+                                //     defaultValue: "3"
 
-                                },
+                                // },
                                 RunLength: {
                                     ref: "runLength",
                                     type: "integer",
@@ -300,12 +300,12 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                 var options = {
                     measurelabel: measureLabel,
                     dimlabel: dimLabel,
-                    stdev: layout.CLStDev,
+                   // stdev: layout.CLStDev,
                     runlength: layout.runLength,
                     trendlength: layout.trendLength,
                     forcedzero: layout.forcedZero,
                     calcpoints: layout.CalcPoints,
-                    cltype: layout.CLType,
+                   // cltype: layout.CLType,
                     showtarget: layout.ShowTarget,
                     targetvalue: layout.TargetValue,
                     higherbetter: layout.HigherBetter,
@@ -344,7 +344,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
             initData.length = opt.calcpoints;
         }
 
-        var optSD = opt.stdev;
+        var optSD = 3; //number of Sigma for CL's
         var runlength = opt.runlength;
         var trendlength = opt.trendlength;
         var showtarget = ((opt.showtarget == 1) ? true : false);
@@ -724,7 +724,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
 
         if (formatTest.charAt(formatTest.length - 1) == '%') {
 
-            var yAxis = d3.axisLeft(y).tickFormat(d3.format('.0%'));
+            var yAxis = d3.axisLeft(y).tickFormat(d3.format('~%'));
 
         } else {
             var yAxis = d3.axisLeft(y);
@@ -750,15 +750,17 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
             highertext = "neither higher or lower is better";
         }
 
-        var titletext = "*Mean and Control Limits calculated on first " + opt.calcpoints + " points of data within a calculation window, " + highertext;
-
-//        svg.append("text")
-//        .attr("transform", "translate(" + (2 - margin.left) + "," + (5 - margin.top) + ")")
-//        .attr("dy", ".35em")
-//       .attr("text-anchor", "start")
-//        .style("fill", "grey")
-//        .attr("font-size", "10px")
-//        .text(titletext);
+	  var titletext = "*Mean and Control Limits calculated on full dataset within recalculation window, " + highertext;
+	  if(data.length >= opt.calcpoints && opt.calcpoints >0){
+	  	titletext = "*Mean and Control Limits (re)calculated on first " + opt.calcpoints + " points of data, " +highertext;
+	  }
+        svg.append("text")
+        .attr("transform", "translate(" + (2 - margin.left) + "," + (5 - margin.top) + ")")
+        .attr("dy", ".35em")
+       .attr("text-anchor", "start")
+        .style("fill", "grey")
+        .attr("font-size", "10px")
+        .text(titletext);
         if (formatTest.charAt(formatTest.length - 1) == '%') {
 
             //UCL text
