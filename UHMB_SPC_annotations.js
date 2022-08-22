@@ -1067,6 +1067,9 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
             if (d.closetomean == 1) {
                 output = output + "<li>run close to mean</li>";
             }
+            if (d.nearUCLCheck == 1) {
+                output = output + "<li>2/3 close to UCL</li>";
+            }
             return output + "</ul>";
         }
         //End tooltipbuilder function
@@ -1121,6 +1124,23 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
             return output;
 
         }
+        function nearUCLCheck(arr,start,num)
+        {
+            var output = 0
+            if (start + num < arr.length) {
+                for (var i = 0; i < num; i++) {
+                    output = output + ((arr[start + i].value  >= 2*arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : -1);
+                }
+                if(output>=2){
+                    for (var i = 0; i < num; i++) {
+                        arr[start + i].nearUCLCheck = 1;
+                    }  
+                }
+            
+            }
+        }
+
+        
 
         //from Brian Boden's d3 stacked area
         function dateFromQlikNumber(n) {
