@@ -1135,7 +1135,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                 }
                 if(output>=2){
                     for (var i = 0; i < num; i++) {
-                        if(arr[start + i]>= 2*arr[start + i].currSigma + arr[start + i].currAvg){
+                        if(arr[start + i].value>= (2*arr[start + i].currSigma + arr[start + i].currAvg)){
                             arr[start + i].nearUCLCheck = 1;
                         }
                         
