@@ -473,6 +473,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                 var revmeansum = revMeanSumCheck(data, i, runlength);
                 var trendsum = trendSumCheck(data, i, trendlength - 1);
                 var closetomean = closeToMean(data, i, opt.within1sigma);
+                var nearUCL = nearUCLCheck(data, i, 3);
                 if (meansum == runlength || revmeansum == runlength || ((i > 0) && (data[i - 1].check == 1 && d.value > d.currAvg))) {
                     d.check = 1;
                 } else if (meansum == -runlength || revmeansum == -runlength || ((i > 0) && (data[i - 1].check == -1 && d.value < d.currAvg))) {
@@ -499,6 +500,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                 prevValue = d.value;
 
             });
+            console.log(data);
 
             //var startdash = d3.max(getFields(initData,"dim"));
 
@@ -779,7 +781,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                     .attr("dy", ".35em")
                     .attr("text-anchor", "start")
                     .style("fill", "grey")
-                    .text("(" + d3.format('.0%')(data[data.length - 1].currUCL) + ")");
+                    .text("(" + d3.format('.2~%')(data[data.length - 1].currUCL) + ")");
 
                 //LCL text
                 svg.append("text")
@@ -787,7 +789,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                     .attr("dy", ".35em")
                     .attr("text-anchor", "start")
                     .style("fill", "grey")
-                    .text("(" + d3.format('.0%')(data[data.length - 1].currLCL) + ")");
+                    .text("(" + d3.format('.2~%')(data[data.length - 1].currLCL) + ")");
 
                 //Mean text
                 svg.append("text")
@@ -795,7 +797,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                     .attr("dy", ".35em")
                     .attr("text-anchor", "start")
                     .style("fill", "black")
-                    .text("(" + d3.format('.0%')(data[data.length - 1].currAvg) + ")");
+                    .text("(" + d3.format('.2~%')(data[data.length - 1].currAvg) + ")");
 
                 //Target Text
                 if (showtarget == true) {
@@ -804,7 +806,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                         .attr("dy", "1em")
                         .attr("text-anchor", "start")
                         .style("fill", "red")
-                        .text("target:(" + d3.format('.0%')(targetvalue) + ")");
+                        .text("target:(" + d3.format('.2~%')(targetvalue) + ")");
                 }
             } else {
 
@@ -1012,7 +1014,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
 
             if (showtarget == true) {
                 if (formatTest.charAt(formatTest.length - 1) == '%') {
-                    var targetText = d3.format('.0%')(targetvalue);
+                    var targetText = d3.format('.2~%')(targetvalue);
                 } else {
                     targetText = targetvalue;
                 }
@@ -1129,15 +1131,19 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
             var output = 0
             if (start + num < arr.length) {
                 for (var i = 0; i < num; i++) {
-                    output = output + ((arr[start + i].value  >= 2*arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : -1);
+                    output = output + ((arr[start + i].value  >= 2*arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : 0);
                 }
                 if(output>=2){
                     for (var i = 0; i < num; i++) {
-                        arr[start + i].nearUCLCheck = 1;
+                        if(arr[start + i]>= 2*arr[start + i].currSigma + arr[start + i].currAvg){
+                            arr[start + i].nearUCLCheck = 1;
+                        }
+                        
                     }  
                 }
             
             }
+            return output;
         }
 
         
