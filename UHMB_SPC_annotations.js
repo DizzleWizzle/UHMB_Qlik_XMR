@@ -474,6 +474,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                 var trendsum = trendSumCheck(data, i, trendlength - 1);
                 var closetomean = closeToMean(data, i, opt.within1sigma);
                 var nearUCL = nearUCLCheck(data, i, 3);
+                var nearLCL = nearLCLCheck(data,i,3);
                 if (meansum == runlength || revmeansum == runlength || ((i > 0) && (data[i - 1].check == 1 && d.value > d.currAvg))) {
                     d.check = 1;
                 } else if (meansum == -runlength || revmeansum == -runlength || ((i > 0) && (data[i - 1].check == -1 && d.value < d.currAvg))) {
@@ -1072,6 +1073,9 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
             if (d.nearUCLCheck == 1) {
                 output = output + "<li>2/3 close to UCL</li>";
             }
+            if (d.nearLCLCheck == 1) {
+                output = output + "<li>2/3 close to LCL</li>";
+            }
             return output + "</ul>";
         }
         //End tooltipbuilder function
@@ -1145,6 +1149,25 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
             }
             return output;
         }
+        function nearLCLCheck(arr,start,num)
+        {
+            var output = 0
+            if (start + num < arr.length) {
+                for (var i = 0; i < num; i++) {
+                    output = output + ((arr[start + i].value  <= -2*arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : 0);
+                }
+                if(output>=2){
+                    for (var i = 0; i < num; i++) {
+                        if(arr[start + i].value<= (-2*arr[start + i].currSigma + arr[start + i].currAvg)){
+                            arr[start + i].nearLCLCheck = 1;
+                        }
+                        
+                    }  
+                }
+            
+            }
+            return output;
+        }
 
         
 
@@ -1179,10 +1202,16 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                 return "Negative";
 
             }
-            if ((d.check == 1 && higherbetter == 2) || (d.check == -1 && higherbetter == 2) || (d.value > d.currUCL && higherbetter == 2) || (d.value < d.currLCL && higherbetter == 2) || (d.asctrendcheck == 1 && higherbetter == 2) || (d.desctrendcheck == 1 && higherbetter == 2)) {
+            if ((d.check == 1 && higherbetter == 2) || (d.check == -1 && higherbetter == 2) || (d.value > d.currUCL && higherbetter == 2) || (d.value < d.currLCL && higherbetter == 2) || (d.asctrendcheck == 1 && higherbetter == 2) || (d.desctrendcheck == 1 && higherbetter == 2) || (d.nearLCLCheck == 1 && higherbetter == 2)|| (d.nearUCLCheck == 1 && higherbetter == 2)) {
                 return "Purple";
 
             }
+            if((d.nearLCLCheck == 1 && higherbetter == false)|| d.nearUCLCheck == 1 && higherbetter == true  ){
+                return "Positive";
+            } 
+            if((d.nearLCLCheck == 1 && higherbetter == true)|| d.nearUCLCheck == 1 && higherbetter == false ){
+                return "Negative";
+            } 
 
             return "None";
 
