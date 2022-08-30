@@ -35,3 +35,8 @@ Show recalculation periods - will turn on highlighting  of the recalculation per
 Colour Array -  overrides default colouring of periods - use CSS names or hex codes delimited by ;
 width of defintion table - set width of table on the right in pixels, use 0 to disable.
 
+#### Notes
+The colouring of points may differ slightly from the MDC excel ones if two competing rules are met (i.e if there is a negative trend and a positive shift), in these rare cases the rules are applied in the following order (first one that is true is the colour)
+1. Shift (x sequential points on one side of the mean)
+2. Trend (x sequential points increasing or decreasing)
+3. 2/3 'close' to a Control Limit (this may work differently to the current MDC rules, awaiting clarification following some discrepenancy in the excel)
