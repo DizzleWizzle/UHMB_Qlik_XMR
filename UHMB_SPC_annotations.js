@@ -968,7 +968,17 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
                 specindex = 1;
             } else if (data[data.length - 1].asctrendcheck == -1 && higherbetter == true) {
                 specindex = 2;
-            } else {
+            } else if (data[data.length - 1].nearUCLCheck == 1 && higherbetter == true) {
+                specindex = 0;
+            } else if (data[data.length - 1].nearLCLCheck == 1 && higherbetter == true) {
+                specindex = 2;
+            } else if (data[data.length - 1].nearLCLCheck == 1 && higherbetter == false) {
+                specindex = 3;
+            } else if (data[data.length - 1].nearUCLCheck == 1 && higherbetter == false) {
+                specindex = 1;
+            }
+            
+            else {
                 specindex = 4;
             }
 
@@ -1133,7 +1143,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
         function nearUCLCheck(arr,start,num)
         {
             var output = 0
-            if (start + num < arr.length) {
+            if (start + num <= arr.length) {
                 for (var i = 0; i < num; i++) {
                     output = output + ((arr[start + i].value  >= 2*arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : 0);
                 }
@@ -1152,7 +1162,7 @@ define(["qlik", "jquery", "./d3.min", "css!./UHMB_SPC_annotations.css"],
         function nearLCLCheck(arr,start,num)
         {
             var output = 0
-            if (start + num < arr.length) {
+            if (start + num <= arr.length) {
                 for (var i = 0; i < num; i++) {
                     output = output + ((arr[start + i].value  <= -2*arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : 0);
                 }
