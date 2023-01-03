@@ -1,16 +1,16 @@
-function processDataArray(data,opt){
+function processDataArray(data,runlength ,trendlength,clunderzero,calcpoints,within1sigma){// opt){
     var optSD = 3; //number of Sigma for CL's
-    var runlength = opt.runlength;
-    var trendlength = opt.trendlength;
-    var showtarget = ((opt.showtarget == 1) ? true : false);
-    var targetvalue = parseFloat(opt.targetvalue);
-    var higherbetter = ((opt.higherbetter == 1) ? true : false);
-    var showlabels = opt.showlabels;
-    var clunderzero = ((opt.clunderzero == 1) ? true : false);
-    var showRecalc = opt.showRecalc;
-    var higherbetternum = opt.higherbetter;
-    var numMeasures = opt.numMeasures;
-    var HideXAxis = opt.HideXAxis;
+    //var runlength = opt.runlength;
+    //var trendlength = opt.trendlength;
+    // var showtarget = ((opt.showtarget == 1) ? true : false);
+    //var targetvalue = parseFloat(opt.targetvalue);
+    //var higherbetter = ((opt.higherbetter == 1) ? true : false);
+    //var showlabels = opt.showlabels;
+    //var clunderzero = ((opt.clunderzero == 1) ? true : false);
+    //var showRecalc = opt.showRecalc;
+    //var higherbetternum = opt.higherbetter;
+    //var numMeasures = opt.numMeasures;
+    //var HideXAxis = opt.HideXAxis;
 
     var unique = [...new Set(data.map(item => item.reCalcID))];
     var Holding =  new Array();
@@ -22,8 +22,8 @@ function processDataArray(data,opt){
 
     Holding.forEach((group) => {
         var trimmed = JSON.parse(JSON.stringify(group));
-        if (trimmed.length >= opt.calcpoints && opt.calcpoints > 0 && opt.useBaseline == true) {
-            trimmed.length = opt.calcpoints;
+        if (trimmed.length >= calcpoints && calcpoints > 0 && useBaseline == true) {
+            trimmed.length = calcpoints;
         }
 
         trimmed.forEach(function (d, i) {
@@ -61,7 +61,7 @@ function processDataArray(data,opt){
         var meansum = meanSumCheck(data, i, runlength);
         var revmeansum = revMeanSumCheck(data, i, runlength);
         var trendsum = trendSumCheck(data, i, trendlength - 1);
-        var closetomean = closeToMean(data, i, opt.within1sigma);
+        var closetomean = closeToMean(data, i, within1sigma);
         var nearUCL = nearUCLCheck(data, i, 3);
         var nearLCL = nearLCLCheck(data,i,3);
         if (meansum == runlength || revmeansum == runlength || ((i > 0) && (data[i - 1].check == 1 && d.value > d.currAvg))) {
@@ -81,7 +81,7 @@ function processDataArray(data,opt){
         } else {
             d.desctrendcheck = 0;
         }
-        if (closetomean == opt.within1sigma || ((i > 0) && (data[i - 1].closetomean == 1 && data[i - 1].currSigma > Math.abs(data[i - 1].currAvg - d.value)))) {
+        if (closetomean == within1sigma || ((i > 0) && (data[i - 1].closetomean == 1 && data[i - 1].currSigma > Math.abs(data[i - 1].currAvg - d.value)))) {
             d.closetomean = 1;
         } else {
             d.closetomean = 0;

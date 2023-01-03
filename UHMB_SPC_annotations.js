@@ -368,7 +368,7 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
             var HideXAxis = opt.HideXAxis;
 
             var Holding ;
-            Holding = processDataArray(data,opt);
+            Holding = processDataArray(data,runlength,trendlength,clunderzero,opt.calcpoints,opt.within1sigma);
             
 
             //change margins if labels are being shown
