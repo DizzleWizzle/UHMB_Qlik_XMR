@@ -1,4 +1,4 @@
-function processDataArray(data,runlength ,trendlength,clunderzero,calcpoints,within1sigma){// opt){
+function processDataArray(data,runlength ,trendlength,clunderzero,calcpoints,within1sigma,useBaseline){// opt){
     var optSD = 3; //number of Sigma for CL's
     //var runlength = opt.runlength;
     //var trendlength = opt.trendlength;
