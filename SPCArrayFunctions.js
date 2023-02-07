@@ -112,13 +112,22 @@ function revMeanSumCheck(arr, start, num) {
     }
     return output;
 }
+function setTrendCheck(arr, start, num) {
+}
 function trendSumCheck(arr, start, num) {
     var output = 0;
     if (start + num < arr.length) {
         for (var i = 0; i < num; i++) {
             var curr = arr[start + i].value;
             var next = arr[start + i + 1].value;
-            var signal = ((curr <= next) ? 1 : -1);
+            var signal = 0;
+            if(curr < next){
+                signal = 1;
+            }
+            else if(curr > next){
+                signal = -1;
+            }
+
             output = output + signal;
         }
     }
