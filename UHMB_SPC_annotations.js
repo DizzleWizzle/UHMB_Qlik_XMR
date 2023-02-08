@@ -609,7 +609,7 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                         div.transition()
                             .duration(200)
                             .style("opacity", .9);
-                        div.html(opt.dimlabel + ": " + d.dim.getFullYear() + "-" + (d.dim.getMonth() + 1) + "-" + d.dim.getDate() + "<br/>" +
+                        div.html(opt.dimlabel + ": " + d.dimText + "<br/>" + //d.dim.getFullYear() + "-" + (d.dim.getMonth() + 1) + "-" + d.dim.getDate() + "<br/>" +
                             opt.measurelabel + ": " + TTValue + "<br/>"
                             + tooltipbuilder(d))
                             .style("left", (TTLeft) + "px");
