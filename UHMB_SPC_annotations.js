@@ -201,6 +201,91 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                                         label: "Width of Definition table ( 0 to disable)",
                                         expression: "optional",
                                         defaultValue: 150
+                                    },
+                                    ShowDQIcons:{
+                                        ref: "ShowDQ",
+                                        type: "integer",
+                                        label: "Enable DQ Icon (1=Yes)",
+                                        expression: "optional",
+                                        defaultValue: 0
+                                    },
+                                    SignOff:{
+                                        ref: "DQSignOff",
+                                        type:"integer",
+                                        label: "Sign Off Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Review:{
+                                        ref: "DQReview",
+                                        type:"integer",
+                                        label: "Review Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Timely:{
+                                        ref: "DQTimely",
+                                        type:"integer",
+                                        label: "Timely Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Complete:{
+                                        ref: "DQComplete",
+                                        type:"integer",
+                                        label: "Complete Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Process:{
+                                        ref: "DQProcess",
+                                        type:"integer",
+                                        label: "Process Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    System:{
+                                        ref: "DQSystem",
+                                        type:"integer",
+                                        label: "System Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
                                     }
 
                                 }
@@ -327,7 +412,14 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                         numMeasures: numMeasure,
                         showRecalc: layout.showRecalc,
                         HideXAxis: layout.HideXAxis,
-                        recalColours: layout.recalColours
+                        recalColours: layout.recalColours,
+                        ShowDQ:layout.ShowDQ,
+                        DQSignOff:layout.DQSignOff,
+                        DQReview: layout.DQReview,
+                        DQTimely: layout.DQTimely,
+                        DQComplete: layout.DQComplete,
+                        DQProcess: layout.DQProcess,
+                        DQSystem: layout.DQSystem
 
                     };
 
@@ -974,6 +1066,10 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                 defTable.append("tr").append("td").text(targetText);
                 defTable.append("tr").append("th").text('Target Achievement');
                 defTable.append("tr").append("td").text(targetAch);
+                if(opt.ShowDQ == 1){
+                    defTable.append("tr").append("th").text('DQ Indicators');
+                    defTable.append("tr").append("td").text('TESTTESTTEST');
+                }
             }
 
         }
