@@ -1067,8 +1067,128 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                 defTable.append("tr").append("th").text('Target Achievement');
                 defTable.append("tr").append("td").text(targetAch);
                 if(opt.ShowDQ == 1){
+                    var DQSCol = 'grey';
+                    var DQTCol = 'grey';
+                    var DQPCol = 'grey';
+
+                    var DQRed = 'red';
+                    var DQAmber = 'Orange';
+                    var DQGreen = 'YellowGreen';
+                    var DQSText = `Sign Off & Review: ${opt.DQSignOff+ opt.DQReview}\nSign Off: ${opt.DQSignOff}\nReview: ${opt.DQReview}`;
+                    var DQTText = `Timely & Complete: ${opt.DQTimely+ opt.DQComplete}\nTimely: ${opt.DQTimely}\nComplete: ${opt.DQComplete}`;
+                    var DQPText = `Process & System: ${opt.DQProcess+ opt.DQSystem}\nProcess: ${opt.DQProcess}\nSystem: ${opt.DQSystem}`;
+                    if(opt.DQSignOff>0 && opt.DQReview>0){
+                        if(opt.DQSignOff+ opt.DQReview>4){
+                            DQSCol = DQGreen;
+                        }
+                        else if(opt.DQSignOff+ opt.DQReview>2){
+                            DQSCol = DQAmber ;
+                        }
+                        else{
+                            DQSCol = DQRed;
+                        }
+                    }
+                    if(opt.DQTimely>0 && opt.DQComplete>0){
+                        if(opt.DQTimely+ opt.DQComplete>4){
+                            DQTCol = DQGreen;
+                        }
+                        else if(opt.DQTimely + opt.DQComplete>2){
+                            DQTCol = DQAmber ;
+                        }
+                        else{
+                            DQTCol = DQRed;
+                        }
+                    }
+                    if(opt.DQProcess>0 && opt.DQSystem>0){
+                        if(opt.DQProcess + opt.DQSystem>4){
+                            DQPCol = DQGreen;
+                        }
+                        else if(opt.DQProcess + opt.DQSystem>2){
+                            DQPCol = DQAmber ;
+                        }
+                        else{
+                            DQPCol = DQRed;
+                        }
+                    }
+                    
+
                     defTable.append("tr").append("th").text('DQ Indicators');
-                    defTable.append("tr").append("td").text('TESTTESTTEST');
+                    var DQIsvg = defTable.append("tr").append("td").append("svg")
+                    .attr("width", "100%")
+                    .attr("height", "30px")
+                    .append("g");
+
+                    // DQIsvg.append('rect')
+                    // .attr('x',0)
+                    // .attr('y',0)
+                    // .attr('width','100%')
+                    // .attr('height','100%')
+                    // .attr('rx',3)
+                    // .attr('ry',3)
+                    // .attr('fill','gainsboro');
+                    DQIsvg.append('circle')
+                    .attr('cx','16%')
+                    .attr('cy','50%')
+                    .attr('r','15px')
+                    .attr('stroke','darkgrey')
+                    .attr('stroke-width','1px')
+                    .attr('fill',DQSCol)
+                    .append('title')
+                    .text(DQSText);
+                    DQIsvg.append('text')
+                    .attr('x','16%')
+                    .attr('y','50%')
+                    .attr('font-size','1.2em')
+                    .attr('font-weight','Bold')
+                    .attr('text-anchor', 'middle')
+                    .attr('alignment-baseline','middle')
+                    .attr('fill','white')
+                    .text('S')
+                    .append('title')
+                    .text(DQSText);
+                    ;
+                    DQIsvg.append('circle')
+                    .attr('cx','50%')
+                    .attr('cy','50%')
+                    .attr('r','15px')
+                    .attr('stroke','darkgrey')
+                    .attr('stroke-width','1px')
+                    .attr('fill',DQTCol)
+                    .append('title')
+                    .text(DQTText);
+                    DQIsvg.append('text')
+                    .attr('x','50%')
+                    .attr('y','50%')
+                    .attr('font-size','1.2em')
+                    .attr('font-weight','Bold')
+                    .attr('text-anchor', 'middle')
+                    .attr('alignment-baseline','middle')
+                    .attr('fill','white')
+                    .text('T')
+                    .append('title')
+                    .text(DQTText);
+                    DQIsvg.append('circle')
+                    .attr('cx','83%')
+                    .attr('cy','50%')
+                    .attr('r','15px')
+                    .attr('stroke','darkgrey')
+                    .attr('stroke-width','1px')
+                    .attr('fill',DQPCol)
+                    .append('title')
+                    .text(DQPText);
+                    DQIsvg.append('text')
+                    .attr('x','83%')
+                    .attr('y','50%')
+                    .attr('font-size','1.2em')
+                    .attr('font-weight','Bold')
+                    .attr('text-anchor', 'middle')
+                    .attr('alignment-baseline','middle')
+                    .attr('fill','white')
+                    .text('P')
+                    .append('title')
+                    .text(DQPText);
+                    
+
                 }
             }
 
