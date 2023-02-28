@@ -286,32 +286,60 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                                             }
                                             return x;
                                         }
+                                    },
+                                    DQIconSize:{
+                                        ref: "DQIconSize",
+                                        type:"integer",
+                                        label: "DQ Icon Size (px)",
+                                        expression: "optional",
+                                        defaultValue:15,
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;                               
+                                         }
+                                    },
+                                    DQTextSize:{
+                                        ref: "DQTextSize",
+                                        type:"string",
+                                        label: "DQ Text Size",
+                                        expression: "optional",
+                                        defaultValue:"1.2em",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;                               
+                                         }
                                     }
 
-                                }
+                                    }   
 
+                                }
                             }
-                        }
-                    },
-                    appearance: {
-                        uses: "settings"
-                    },
-                    abouttxt: {
-                        label: "About",
-                        type: "items",
-                        items: {
-                            abouttxt2: {
-                                label: "About",
-                                type: "items",
-                                items: {
-                                    aboutt: {
-                                        component: "text",
-                                        label: "UHMB SPC Extension with recalculation of Control Limits developed by Dale Wright"
+                        },
+                        appearance: {
+                            uses: "settings"
+                        },
+                        abouttxt: {
+                            label: "About",
+                            type: "items",
+                            items: {
+                                abouttxt2: {
+                                    label: "About",
+                                    type: "items",
+                                    items: {
+                                        aboutt: {
+                                            component: "text",
+                                            label: "UHMB SPC Extension with recalculation of Control Limits developed by Dale Wright"
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
                 }
 
             },
@@ -419,7 +447,9 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                         DQTimely: layout.DQTimely,
                         DQComplete: layout.DQComplete,
                         DQProcess: layout.DQProcess,
-                        DQSystem: layout.DQSystem
+                        DQSystem: layout.DQSystem,
+                        DQIconSize: layout.DQIconSize,
+                        DQTextSize: layout.DQTextSize
 
                     };
 
@@ -1077,6 +1107,15 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                     var DQSText = `Sign Off & Review: ${opt.DQSignOff+ opt.DQReview}\nSign Off: ${opt.DQSignOff}\nReview: ${opt.DQReview}`;
                     var DQTText = `Timely & Complete: ${opt.DQTimely+ opt.DQComplete}\nTimely: ${opt.DQTimely}\nComplete: ${opt.DQComplete}`;
                     var DQPText = `Process & System: ${opt.DQProcess+ opt.DQSystem}\nProcess: ${opt.DQProcess}\nSystem: ${opt.DQSystem}`;
+                    
+                    if(opt.DQIconSize == null){
+                        opt.DQIconSize = 15;
+                    }
+
+                    if(opt.DQTextSize == null){
+                        opt.DQTextSize = '1.2em';
+                    }
+
                     if(opt.DQSignOff>0 && opt.DQReview>0){
                         if(opt.DQSignOff+ opt.DQReview>4){
                             DQSCol = DQGreen;
@@ -1115,7 +1154,7 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                     defTable.append("tr").append("th").text('DQ Indicators');
                     var DQIsvg = defTable.append("tr").append("td").append("svg")
                     .attr("width", "100%")
-                    .attr("height", "30px")
+                    .attr("height", 2* opt.DQIconSize +"px")
                     .append("g");
 
                     // DQIsvg.append('rect')
@@ -1129,16 +1168,17 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                     DQIsvg.append('circle')
                     .attr('cx','16%')
                     .attr('cy','50%')
-                    .attr('r','15px')
+                    .attr('r',opt.DQIconSize +"px")
                     .attr('stroke','darkgrey')
                     .attr('stroke-width','1px')
                     .attr('fill',DQSCol)
+                    .attr('shape-rendering',"geometricPrecision")
                     .append('title')
                     .text(DQSText);
                     DQIsvg.append('text')
                     .attr('x','16%')
                     .attr('y','50%')
-                    .attr('font-size','1.2em')
+                    .attr('font-size',opt.DQTextSize)
                     .attr('font-weight','Bold')
                     .attr('text-anchor', 'middle')
                     .attr('alignment-baseline','middle')
@@ -1150,16 +1190,17 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                     DQIsvg.append('circle')
                     .attr('cx','50%')
                     .attr('cy','50%')
-                    .attr('r','15px')
+                    .attr('r',opt.DQIconSize +"px")
                     .attr('stroke','darkgrey')
                     .attr('stroke-width','1px')
                     .attr('fill',DQTCol)
+                    .attr('shape-rendering',"geometricPrecision")
                     .append('title')
                     .text(DQTText);
                     DQIsvg.append('text')
                     .attr('x','50%')
                     .attr('y','50%')
-                    .attr('font-size','1.2em')
+                    .attr('font-size',opt.DQTextSize)
                     .attr('font-weight','Bold')
                     .attr('text-anchor', 'middle')
                     .attr('alignment-baseline','middle')
@@ -1170,16 +1211,17 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                     DQIsvg.append('circle')
                     .attr('cx','83%')
                     .attr('cy','50%')
-                    .attr('r','15px')
+                    .attr('r',opt.DQIconSize +"px")
                     .attr('stroke','darkgrey')
                     .attr('stroke-width','1px')
                     .attr('fill',DQPCol)
+                    .attr('shape-rendering',"geometricPrecision")
                     .append('title')
                     .text(DQPText);
                     DQIsvg.append('text')
                     .attr('x','83%')
                     .attr('y','50%')
-                    .attr('font-size','1.2em')
+                    .attr('font-size',opt.DQTextSize)
                     .attr('font-weight','Bold')
                     .attr('text-anchor', 'middle')
                     .attr('alignment-baseline','middle')
