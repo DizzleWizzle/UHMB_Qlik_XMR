@@ -34,6 +34,9 @@ Make sure sorting is by dimension first, if it looks like the below its probably
 * Show recalculation periods - will turn on highlighting  of the recalculation periods
 * Colour Array -  overrides default colouring of periods - use CSS names or hex codes delimited by ;
 * width of defintion table - set width of table on the right in pixels, use 0 to disable.
+* Enable DQ Icons - if set to 1 shows an extra row in the defintion table for 3 coloured circles based on the next 6 values (each is 0-3)
+* DQ Icon Size - integer for radius in px
+* DQ Icon Text - string for the text size
 
 #### Notes
 The colouring of points may differ slightly from the MDC excel ones if two competing rules are met (i.e if there is a negative trend and a positive shift), in these rare cases the rules are applied in the following order (first one that is true is the colour)
