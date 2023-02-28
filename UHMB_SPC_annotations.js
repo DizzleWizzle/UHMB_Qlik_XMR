@@ -201,32 +201,145 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                                         label: "Width of Definition table ( 0 to disable)",
                                         expression: "optional",
                                         defaultValue: 150
+                                    },
+                                    ShowDQIcons:{
+                                        ref: "ShowDQ",
+                                        type: "integer",
+                                        label: "Enable DQ Icon (1=Yes)",
+                                        expression: "optional",
+                                        defaultValue: 0
+                                    },
+                                    SignOff:{
+                                        ref: "DQSignOff",
+                                        type:"integer",
+                                        label: "Sign Off Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Review:{
+                                        ref: "DQReview",
+                                        type:"integer",
+                                        label: "Review Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Timely:{
+                                        ref: "DQTimely",
+                                        type:"integer",
+                                        label: "Timely Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Complete:{
+                                        ref: "DQComplete",
+                                        type:"integer",
+                                        label: "Complete Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    Process:{
+                                        ref: "DQProcess",
+                                        type:"integer",
+                                        label: "Process Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    System:{
+                                        ref: "DQSystem",
+                                        type:"integer",
+                                        label: "System Value",
+                                        expression: "optional",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;
+                                        }
+                                    },
+                                    DQIconSize:{
+                                        ref: "DQIconSize",
+                                        type:"integer",
+                                        label: "DQ Icon Size (px)",
+                                        expression: "optional",
+                                        defaultValue:15,
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;                               
+                                         }
+                                    },
+                                    DQTextSize:{
+                                        ref: "DQTextSize",
+                                        type:"string",
+                                        label: "DQ Text Size",
+                                        expression: "optional",
+                                        defaultValue:"1.2em",
+                                        show: function (data) {
+                                            var x = false;
+                                            if(data.ShowDQ == 1){
+                                                x = true;
+                                            }
+                                            return x;                               
+                                         }
                                     }
 
-                                }
+                                    }   
 
+                                }
                             }
-                        }
-                    },
-                    appearance: {
-                        uses: "settings"
-                    },
-                    abouttxt: {
-                        label: "About",
-                        type: "items",
-                        items: {
-                            abouttxt2: {
-                                label: "About",
-                                type: "items",
-                                items: {
-                                    aboutt: {
-                                        component: "text",
-                                        label: "UHMB SPC Extension with recalculation of Control Limits developed by Dale Wright"
+                        },
+                        appearance: {
+                            uses: "settings"
+                        },
+                        abouttxt: {
+                            label: "About",
+                            type: "items",
+                            items: {
+                                abouttxt2: {
+                                    label: "About",
+                                    type: "items",
+                                    items: {
+                                        aboutt: {
+                                            component: "text",
+                                            label: "UHMB SPC Extension with recalculation of Control Limits developed by Dale Wright"
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
                 }
 
             },
@@ -327,7 +440,16 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                         numMeasures: numMeasure,
                         showRecalc: layout.showRecalc,
                         HideXAxis: layout.HideXAxis,
-                        recalColours: layout.recalColours
+                        recalColours: layout.recalColours,
+                        ShowDQ:layout.ShowDQ,
+                        DQSignOff:layout.DQSignOff,
+                        DQReview: layout.DQReview,
+                        DQTimely: layout.DQTimely,
+                        DQComplete: layout.DQComplete,
+                        DQProcess: layout.DQProcess,
+                        DQSystem: layout.DQSystem,
+                        DQIconSize: layout.DQIconSize,
+                        DQTextSize: layout.DQTextSize
 
                     };
 
@@ -974,6 +1096,142 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                 defTable.append("tr").append("td").text(targetText);
                 defTable.append("tr").append("th").text('Target Achievement');
                 defTable.append("tr").append("td").text(targetAch);
+                if(opt.ShowDQ == 1){
+                    var DQSCol = 'grey';
+                    var DQTCol = 'grey';
+                    var DQPCol = 'grey';
+
+                    var DQRed = 'red';
+                    var DQAmber = 'Orange';
+                    var DQGreen = 'YellowGreen';
+                    var DQSText = `Sign Off & Review: ${opt.DQSignOff+ opt.DQReview}\nSign Off: ${opt.DQSignOff}\nReview: ${opt.DQReview}`;
+                    var DQTText = `Timely & Complete: ${opt.DQTimely+ opt.DQComplete}\nTimely: ${opt.DQTimely}\nComplete: ${opt.DQComplete}`;
+                    var DQPText = `Process & System: ${opt.DQProcess+ opt.DQSystem}\nProcess: ${opt.DQProcess}\nSystem: ${opt.DQSystem}`;
+                    
+                    if(opt.DQIconSize == null){
+                        opt.DQIconSize = 15;
+                    }
+
+                    if(opt.DQTextSize == null){
+                        opt.DQTextSize = '1.2em';
+                    }
+
+                    if(opt.DQSignOff>0 && opt.DQReview>0){
+                        if(opt.DQSignOff+ opt.DQReview>4){
+                            DQSCol = DQGreen;
+                        }
+                        else if(opt.DQSignOff+ opt.DQReview>2){
+                            DQSCol = DQAmber ;
+                        }
+                        else{
+                            DQSCol = DQRed;
+                        }
+                    }
+                    if(opt.DQTimely>0 && opt.DQComplete>0){
+                        if(opt.DQTimely+ opt.DQComplete>4){
+                            DQTCol = DQGreen;
+                        }
+                        else if(opt.DQTimely + opt.DQComplete>2){
+                            DQTCol = DQAmber ;
+                        }
+                        else{
+                            DQTCol = DQRed;
+                        }
+                    }
+                    if(opt.DQProcess>0 && opt.DQSystem>0){
+                        if(opt.DQProcess + opt.DQSystem>4){
+                            DQPCol = DQGreen;
+                        }
+                        else if(opt.DQProcess + opt.DQSystem>2){
+                            DQPCol = DQAmber ;
+                        }
+                        else{
+                            DQPCol = DQRed;
+                        }
+                    }
+                    
+
+                    defTable.append("tr").append("th").text('DQ Indicators');
+                    var DQIsvg = defTable.append("tr").append("td").append("svg")
+                    .attr("width", "100%")
+                    .attr("height", 2* opt.DQIconSize +"px")
+                    .append("g");
+
+                    // DQIsvg.append('rect')
+                    // .attr('x',0)
+                    // .attr('y',0)
+                    // .attr('width','100%')
+                    // .attr('height','100%')
+                    // .attr('rx',3)
+                    // .attr('ry',3)
+                    // .attr('fill','gainsboro');
+                    DQIsvg.append('circle')
+                    .attr('cx','16%')
+                    .attr('cy','50%')
+                    .attr('r',opt.DQIconSize +"px")
+                    .attr('stroke','darkgrey')
+                    .attr('stroke-width','1px')
+                    .attr('fill',DQSCol)
+                    .attr('shape-rendering',"geometricPrecision")
+                    .append('title')
+                    .text(DQSText);
+                    DQIsvg.append('text')
+                    .attr('x','16%')
+                    .attr('y','50%')
+                    .attr('font-size',opt.DQTextSize)
+                    .attr('font-weight','Bold')
+                    .attr('text-anchor', 'middle')
+                    .attr('alignment-baseline','middle')
+                    .attr('fill','white')
+                    .text('S')
+                    .append('title')
+                    .text(DQSText);
+                    ;
+                    DQIsvg.append('circle')
+                    .attr('cx','50%')
+                    .attr('cy','50%')
+                    .attr('r',opt.DQIconSize +"px")
+                    .attr('stroke','darkgrey')
+                    .attr('stroke-width','1px')
+                    .attr('fill',DQTCol)
+                    .attr('shape-rendering',"geometricPrecision")
+                    .append('title')
+                    .text(DQTText);
+                    DQIsvg.append('text')
+                    .attr('x','50%')
+                    .attr('y','50%')
+                    .attr('font-size',opt.DQTextSize)
+                    .attr('font-weight','Bold')
+                    .attr('text-anchor', 'middle')
+                    .attr('alignment-baseline','middle')
+                    .attr('fill','white')
+                    .text('T')
+                    .append('title')
+                    .text(DQTText);
+                    DQIsvg.append('circle')
+                    .attr('cx','83%')
+                    .attr('cy','50%')
+                    .attr('r',opt.DQIconSize +"px")
+                    .attr('stroke','darkgrey')
+                    .attr('stroke-width','1px')
+                    .attr('fill',DQPCol)
+                    .attr('shape-rendering',"geometricPrecision")
+                    .append('title')
+                    .text(DQPText);
+                    DQIsvg.append('text')
+                    .attr('x','83%')
+                    .attr('y','50%')
+                    .attr('font-size',opt.DQTextSize)
+                    .attr('font-weight','Bold')
+                    .attr('text-anchor', 'middle')
+                    .attr('alignment-baseline','middle')
+                    .attr('fill','white')
+                    .text('P')
+                    .append('title')
+                    .text(DQPText);
+                    
+
+                }
             }
 
         }
