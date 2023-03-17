@@ -79,7 +79,7 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                                         type: "boolean",
                                         label: "Use Baseline",
                                         ref: "BaseLineFlag",
-                                        defaultValue: true
+                                        defaultValue: false
                                     },
                                     CalculationPoints: {
                                         ref: "CalcPoints",
