@@ -86,7 +86,7 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                                         type: "string",
                                         label: "Num Points for Baseline",
                                         expression: "optional",
-                                        defaultValue: "20",
+                                        defaultValue: "200",
                                         show: function (data) {
                                             return data.BaseLineFlag;
                                         }
