@@ -1,5 +1,5 @@
-define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_annotations.css"],
-    function (qlik, $, d3,SPC) {
+define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_annotations.css"],
+    function (qlik, $, d3, SPC) {
         'use strict';
         return {
 
@@ -202,144 +202,144 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                                         expression: "optional",
                                         defaultValue: 150
                                     },
-                                    ShowDQIcons:{
+                                    ShowDQIcons: {
                                         ref: "ShowDQ",
                                         type: "integer",
                                         label: "Enable DQ Icon (1=Yes)",
                                         expression: "optional",
                                         defaultValue: 0
                                     },
-                                    SignOff:{
+                                    SignOff: {
                                         ref: "DQSignOff",
-                                        type:"integer",
+                                        type: "integer",
                                         label: "Sign Off Value",
                                         expression: "optional",
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
                                             return x;
                                         }
                                     },
-                                    Review:{
+                                    Review: {
                                         ref: "DQReview",
-                                        type:"integer",
+                                        type: "integer",
                                         label: "Review Value",
                                         expression: "optional",
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
                                             return x;
                                         }
                                     },
-                                    Timely:{
+                                    Timely: {
                                         ref: "DQTimely",
-                                        type:"integer",
+                                        type: "integer",
                                         label: "Timely Value",
                                         expression: "optional",
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
                                             return x;
                                         }
                                     },
-                                    Complete:{
+                                    Complete: {
                                         ref: "DQComplete",
-                                        type:"integer",
+                                        type: "integer",
                                         label: "Complete Value",
                                         expression: "optional",
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
                                             return x;
                                         }
                                     },
-                                    Process:{
+                                    Process: {
                                         ref: "DQProcess",
-                                        type:"integer",
+                                        type: "integer",
                                         label: "Process Value",
                                         expression: "optional",
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
                                             return x;
                                         }
                                     },
-                                    System:{
+                                    System: {
                                         ref: "DQSystem",
-                                        type:"integer",
+                                        type: "integer",
                                         label: "System Value",
                                         expression: "optional",
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
                                             return x;
                                         }
                                     },
-                                    DQIconSize:{
+                                    DQIconSize: {
                                         ref: "DQIconSize",
-                                        type:"integer",
+                                        type: "integer",
                                         label: "DQ Icon Size (px)",
                                         expression: "optional",
-                                        defaultValue:15,
+                                        defaultValue: 15,
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
-                                            return x;                               
-                                         }
+                                            return x;
+                                        }
                                     },
-                                    DQTextSize:{
+                                    DQTextSize: {
                                         ref: "DQTextSize",
-                                        type:"string",
+                                        type: "string",
                                         label: "DQ Text Size",
                                         expression: "optional",
-                                        defaultValue:"1.2em",
+                                        defaultValue: "1.2em",
                                         show: function (data) {
                                             var x = false;
-                                            if(data.ShowDQ == 1){
+                                            if (data.ShowDQ == 1) {
                                                 x = true;
                                             }
-                                            return x;                               
-                                         }
+                                            return x;
+                                        }
                                     }
 
-                                    }   
-
                                 }
+
                             }
-                        },
-                        appearance: {
-                            uses: "settings"
-                        },
-                        abouttxt: {
-                            label: "About",
-                            type: "items",
-                            items: {
-                                abouttxt2: {
-                                    label: "About",
-                                    type: "items",
-                                    items: {
-                                        aboutt: {
-                                            component: "text",
-                                            label: "UHMB SPC Extension with recalculation of Control Limits developed by Dale Wright"
-                                        }
+                        }
+                    },
+                    appearance: {
+                        uses: "settings"
+                    },
+                    abouttxt: {
+                        label: "About",
+                        type: "items",
+                        items: {
+                            abouttxt2: {
+                                label: "About",
+                                type: "items",
+                                items: {
+                                    aboutt: {
+                                        component: "text",
+                                        label: "UHMB SPC Extension with recalculation of Control Limits developed by Dale Wright"
                                     }
                                 }
                             }
                         }
+                    }
                 }
 
             },
@@ -441,8 +441,8 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                         showRecalc: layout.showRecalc,
                         HideXAxis: layout.HideXAxis,
                         recalColours: layout.recalColours,
-                        ShowDQ:layout.ShowDQ,
-                        DQSignOff:layout.DQSignOff,
+                        ShowDQ: layout.ShowDQ,
+                        DQSignOff: layout.DQSignOff,
                         DQReview: layout.DQReview,
                         DQTimely: layout.DQTimely,
                         DQComplete: layout.DQComplete,
@@ -489,9 +489,9 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
             var numMeasures = opt.numMeasures;
             var HideXAxis = opt.HideXAxis;
 
-            var Holding ;
-            Holding = processDataArray(data,runlength,trendlength,clunderzero,opt.calcpoints,opt.within1sigma,opt.useBaseline);
-            
+            var Holding;
+            Holding = processDataArray(data, runlength, trendlength, clunderzero, opt.calcpoints, opt.within1sigma, opt.useBaseline);
+
 
             //change margins if labels are being shown
 
@@ -964,25 +964,33 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
 
             var specvaricon = [{
                 filename: "speccausehighimp.png",
-                description: "Special cause variation - improvement  (indicator where high is good)"
+                description: '<span title ="Special cause variation - improvement  (indicator where high is good)">Special cause variation - improvement...</span>',
+                alt:"Special cause variation - improvement  (indicator where high is good)"
             }, {
                 filename: "speccausehighconc.png",
-                description: "Special cause variation - cause for concern (indicator where high is a concern)"
+                description: '<span title = "Special cause variation - cause for concern (indicator where high is a concern)">Special cause variation - cause for concern...</span>',
+                alt:'Special cause variation - cause for concern (indicator where high is a concern)'
             }, {
                 filename: "speccauselowconc.png",
-                description: "Special cause variation - cause for concern (indicator where low is a concern)"
+                description: '<span title = "Special cause variation - cause for concern (indicator where low is a concern)">Special cause variation - cause for concern...</span>',
+                alt:'Special cause variation - cause for concern (indicator where low is a concern)'
             }, {
                 filename: "speccauselowimp.png",
-                description: "Special cause variation - improvement  (indicator where low is good)"
+                description: '<span title = "Special cause variation - improvement  (indicator where low is good)">Special cause variation - improvement...</span>',
+                alt:'Special cause variation - improvement  (indicator where low is good)'
             }, {
                 filename: "comcause.png",
-                description: "Common cause variation"
+                description: "Common cause variation",
+                alt:"Common cause variation"
+
             }, {
                 filename: "V-Purple Up.png",
-                description: "Common cause variation"
+                description: "Common cause variation",
+                alt:"Common cause variation"
             }, {
                 filename: "V-Purple Down.png",
-                description: "Common cause variation"
+                description: "Common cause variation",
+                alt:"Common cause variation"
             }
             ];
 
@@ -1022,7 +1030,7 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
             } else if (data[data.length - 1].nearUCLCheck == 1 && higherbetter == false) {
                 specindex = 1;
             }
-            
+
             else {
                 specindex = 4;
             }
@@ -1066,7 +1074,7 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                 .attr('x', width + margin.right - 80)
                 .attr('y', 0 - margin.top)
                 .append('svg:title')
-                .text(specvaricon[specindex].description);
+                .text(specvaricon[specindex].alt);
 
             if (showtarget == true) {
                 if (formatTest.charAt(formatTest.length - 1) == '%') {
@@ -1091,12 +1099,12 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                 defTable.append("tr").append("th").text('Latest');
                 defTable.append("tr").append("td").text(data[data.length - 1].valText);
                 defTable.append("tr").append("th").text('Variance Type');
-                defTable.append("tr").append("td").text(specvaricon[specindex].description);
+                defTable.append("tr").append("td").html(specvaricon[specindex].description);
                 defTable.append("tr").append("th").text('Target');
                 defTable.append("tr").append("td").text(targetText);
                 defTable.append("tr").append("th").text('Target Achievement');
                 defTable.append("tr").append("td").text(targetAch);
-                if(opt.ShowDQ == 1){
+                if (opt.ShowDQ == 1) {
                     var DQSCol = 'grey';
                     var DQTCol = 'grey';
                     var DQPCol = 'grey';
@@ -1104,58 +1112,58 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                     var DQRed = 'red';
                     var DQAmber = 'Orange';
                     var DQGreen = 'YellowGreen';
-                    var DQSText = `Sign Off & Review: ${opt.DQSignOff+ opt.DQReview}\nSign Off: ${opt.DQSignOff}\nReview: ${opt.DQReview}`;
-                    var DQTText = `Timely & Complete: ${opt.DQTimely+ opt.DQComplete}\nTimely: ${opt.DQTimely}\nComplete: ${opt.DQComplete}`;
-                    var DQPText = `Process & System: ${opt.DQProcess+ opt.DQSystem}\nProcess: ${opt.DQProcess}\nSystem: ${opt.DQSystem}`;
-                    
-                    if(opt.DQIconSize == null){
+                    var DQSText = `Sign Off & Review: ${opt.DQSignOff + opt.DQReview}\nSign Off: ${opt.DQSignOff}\nReview: ${opt.DQReview}`;
+                    var DQTText = `Timely & Complete: ${opt.DQTimely + opt.DQComplete}\nTimely: ${opt.DQTimely}\nComplete: ${opt.DQComplete}`;
+                    var DQPText = `Process & System: ${opt.DQProcess + opt.DQSystem}\nProcess: ${opt.DQProcess}\nSystem: ${opt.DQSystem}`;
+
+                    if (opt.DQIconSize == null) {
                         opt.DQIconSize = 15;
                     }
 
-                    if(opt.DQTextSize == null){
+                    if (opt.DQTextSize == null) {
                         opt.DQTextSize = '1.2em';
                     }
 
-                    if(opt.DQSignOff>0 && opt.DQReview>0){
-                        if(opt.DQSignOff+ opt.DQReview>4){
+                    if (opt.DQSignOff > 0 && opt.DQReview > 0) {
+                        if (opt.DQSignOff + opt.DQReview > 4) {
                             DQSCol = DQGreen;
                         }
-                        else if(opt.DQSignOff+ opt.DQReview>2){
-                            DQSCol = DQAmber ;
+                        else if (opt.DQSignOff + opt.DQReview > 2) {
+                            DQSCol = DQAmber;
                         }
-                        else{
+                        else {
                             DQSCol = DQRed;
                         }
                     }
-                    if(opt.DQTimely>0 && opt.DQComplete>0){
-                        if(opt.DQTimely+ opt.DQComplete>4){
+                    if (opt.DQTimely > 0 && opt.DQComplete > 0) {
+                        if (opt.DQTimely + opt.DQComplete > 4) {
                             DQTCol = DQGreen;
                         }
-                        else if(opt.DQTimely + opt.DQComplete>2){
-                            DQTCol = DQAmber ;
+                        else if (opt.DQTimely + opt.DQComplete > 2) {
+                            DQTCol = DQAmber;
                         }
-                        else{
+                        else {
                             DQTCol = DQRed;
                         }
                     }
-                    if(opt.DQProcess>0 && opt.DQSystem>0){
-                        if(opt.DQProcess + opt.DQSystem>4){
+                    if (opt.DQProcess > 0 && opt.DQSystem > 0) {
+                        if (opt.DQProcess + opt.DQSystem > 4) {
                             DQPCol = DQGreen;
                         }
-                        else if(opt.DQProcess + opt.DQSystem>2){
-                            DQPCol = DQAmber ;
+                        else if (opt.DQProcess + opt.DQSystem > 2) {
+                            DQPCol = DQAmber;
                         }
-                        else{
+                        else {
                             DQPCol = DQRed;
                         }
                     }
-                    
+
 
                     defTable.append("tr").append("th").text('DQ Indicators');
                     var DQIsvg = defTable.append("tr").append("td").append("svg")
-                    .attr("width", "100%")
-                    .attr("height", 2* opt.DQIconSize +"px")
-                    .append("g");
+                        .attr("width", "100%")
+                        .attr("height", 2 * opt.DQIconSize + "px")
+                        .append("g");
 
                     // DQIsvg.append('rect')
                     // .attr('x',0)
@@ -1166,70 +1174,70 @@ define(["qlik", "jquery", "./d3.min","./SPCArrayFunctions", "css!./UHMB_SPC_anno
                     // .attr('ry',3)
                     // .attr('fill','gainsboro');
                     DQIsvg.append('circle')
-                    .attr('cx','16%')
-                    .attr('cy','50%')
-                    .attr('r',opt.DQIconSize +"px")
-                    .attr('stroke','darkgrey')
-                    .attr('stroke-width','1px')
-                    .attr('fill',DQSCol)
-                    .attr('shape-rendering',"geometricPrecision")
-                    .append('title')
-                    .text(DQSText);
+                        .attr('cx', '16%')
+                        .attr('cy', '50%')
+                        .attr('r', opt.DQIconSize + "px")
+                        .attr('stroke', 'darkgrey')
+                        .attr('stroke-width', '1px')
+                        .attr('fill', DQSCol)
+                        .attr('shape-rendering', "geometricPrecision")
+                        .append('title')
+                        .text(DQSText);
                     DQIsvg.append('text')
-                    .attr('x','16%')
-                    .attr('y','50%')
-                    .attr('font-size',opt.DQTextSize)
-                    .attr('font-weight','Bold')
-                    .attr('text-anchor', 'middle')
-                    .attr('alignment-baseline','middle')
-                    .attr('fill','white')
-                    .text('S')
-                    .append('title')
-                    .text(DQSText);
+                        .attr('x', '16%')
+                        .attr('y', '50%')
+                        .attr('font-size', opt.DQTextSize)
+                        .attr('font-weight', 'Bold')
+                        .attr('text-anchor', 'middle')
+                        .attr('alignment-baseline', 'middle')
+                        .attr('fill', 'white')
+                        .text('S')
+                        .append('title')
+                        .text(DQSText);
                     ;
                     DQIsvg.append('circle')
-                    .attr('cx','50%')
-                    .attr('cy','50%')
-                    .attr('r',opt.DQIconSize +"px")
-                    .attr('stroke','darkgrey')
-                    .attr('stroke-width','1px')
-                    .attr('fill',DQTCol)
-                    .attr('shape-rendering',"geometricPrecision")
-                    .append('title')
-                    .text(DQTText);
+                        .attr('cx', '50%')
+                        .attr('cy', '50%')
+                        .attr('r', opt.DQIconSize + "px")
+                        .attr('stroke', 'darkgrey')
+                        .attr('stroke-width', '1px')
+                        .attr('fill', DQTCol)
+                        .attr('shape-rendering', "geometricPrecision")
+                        .append('title')
+                        .text(DQTText);
                     DQIsvg.append('text')
-                    .attr('x','50%')
-                    .attr('y','50%')
-                    .attr('font-size',opt.DQTextSize)
-                    .attr('font-weight','Bold')
-                    .attr('text-anchor', 'middle')
-                    .attr('alignment-baseline','middle')
-                    .attr('fill','white')
-                    .text('T')
-                    .append('title')
-                    .text(DQTText);
+                        .attr('x', '50%')
+                        .attr('y', '50%')
+                        .attr('font-size', opt.DQTextSize)
+                        .attr('font-weight', 'Bold')
+                        .attr('text-anchor', 'middle')
+                        .attr('alignment-baseline', 'middle')
+                        .attr('fill', 'white')
+                        .text('T')
+                        .append('title')
+                        .text(DQTText);
                     DQIsvg.append('circle')
-                    .attr('cx','83%')
-                    .attr('cy','50%')
-                    .attr('r',opt.DQIconSize +"px")
-                    .attr('stroke','darkgrey')
-                    .attr('stroke-width','1px')
-                    .attr('fill',DQPCol)
-                    .attr('shape-rendering',"geometricPrecision")
-                    .append('title')
-                    .text(DQPText);
+                        .attr('cx', '83%')
+                        .attr('cy', '50%')
+                        .attr('r', opt.DQIconSize + "px")
+                        .attr('stroke', 'darkgrey')
+                        .attr('stroke-width', '1px')
+                        .attr('fill', DQPCol)
+                        .attr('shape-rendering', "geometricPrecision")
+                        .append('title')
+                        .text(DQPText);
                     DQIsvg.append('text')
-                    .attr('x','83%')
-                    .attr('y','50%')
-                    .attr('font-size',opt.DQTextSize)
-                    .attr('font-weight','Bold')
-                    .attr('text-anchor', 'middle')
-                    .attr('alignment-baseline','middle')
-                    .attr('fill','white')
-                    .text('P')
-                    .append('title')
-                    .text(DQPText);
-                    
+                        .attr('x', '83%')
+                        .attr('y', '50%')
+                        .attr('font-size', opt.DQTextSize)
+                        .attr('font-weight', 'Bold')
+                        .attr('text-anchor', 'middle')
+                        .attr('alignment-baseline', 'middle')
+                        .attr('fill', 'white')
+                        .text('P')
+                        .append('title')
+                        .text(DQPText);
+
 
                 }
             }
