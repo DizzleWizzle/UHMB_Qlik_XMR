@@ -335,6 +335,11 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                     aboutt: {
                                         component: "text",
                                         label: "UHMB SPC Extension with recalculation of Control Limits developed by Dale Wright"
+                                    },
+                                    about3: {
+                                        component: "link",
+                                        label: "GitHub for Extension",
+                                        url: "https://github.com/DizzleWizzle/UHMB_Qlik_XMR"
                                     }
                                 }
                             }
