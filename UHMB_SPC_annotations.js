@@ -59,6 +59,13 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                         type: "string",
                                         label: "Target",
                                         expression: "optional"
+                                    },
+                                    ExtraAssurance: {
+                                        ref: "ExtraAssurance",
+                                        type: "string",
+                                        label: "Show Extra Assurance Icons (0/1)",
+                                        expression: "optional",
+                                        defaultValue: "0"
                                     }
 
                                 }
@@ -436,6 +443,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                         // cltype: layout.CLType,
                         showtarget: layout.ShowTarget,
                         targetvalue: layout.TargetValue,
+                        extraAssurance: layout.ExtraAssurance,
                         higherbetter: layout.HigherBetter,
                         showlabels: layout.showLabels,
                         within1sigma: layout.runclosetomean,
@@ -1049,15 +1057,37 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             }, {
                 filename: "randvar.png",
                 description: "The system may achieve or fail the target subject to random variation"
+            }, {
+                filename: "recentpass.png",
+                description: "The system has passed the target for the past 6 data points but limits havent crossed the target value"
+            }, {
+                filename: "recentfail.png",
+                description: "The system has failed the target for the past 6 data points but limits havent crossed the target value"
             }
             ];
+
+            var recentCount = 0;
+            for( var q =1; q<=6; q++){
+                if ((higherbetter == true && data[data.length - q].value > targetvalue) || (higherbetter == false && data[data.length - q].value < targetvalue)) {
+                    recentCount++;
+                }else if ((higherbetter == true && data[data.length - q].value < targetvalue) || (higherbetter == false && data[data.length - q].value > targetvalue)) {
+                    recentCount--;
+                }
+            }
+            
 
             var targetindex;
             if ((higherbetter == true && data[data.length - 1].currLCL > targetvalue) || (higherbetter == false && data[data.length - 1].currUCL < targetvalue)) {
                 targetindex = 1;
             } else if ((higherbetter == true && data[data.length - 1].currUCL < targetvalue) || (higherbetter == false && data[data.length - 1].currLCL > targetvalue)) {
                 targetindex = 0;
-            } else {
+            } else if (recentCount == 6 && opt.extraAssurance == 1){
+                targetindex = 3;
+            } else if (recentCount == -6 && opt.extraAssurance == 1){
+                targetindex = 4;
+            }
+            
+            else {
                 targetindex = 2;
             }
 
