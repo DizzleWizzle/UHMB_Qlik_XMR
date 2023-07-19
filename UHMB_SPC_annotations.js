@@ -1050,19 +1050,24 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
 
             var targeticon = [{
                 filename: "consfail.png",
-                description: "The system is expected to consistently fail the target"
+                description: "The system is expected to consistently fail the target",
+                alt: "The system is expected to consistently fail the target"
             }, {
                 filename: "conspass.png",
-                description: "The system is expected to consistently pass the target"
+                description: "The system is expected to consistently pass the target",
+                alt: "The system is expected to consistently pass the target"
             }, {
                 filename: "randvar.png",
-                description: "The system may achieve or fail the target subject to random variation"
+                description: "The system may achieve or fail the target subject to random variation",
+                alt: "The system may achieve or fail the target subject to random variation"
             }, {
                 filename: "recentpass.png",
-                description: "The system has passed the target for the past 6 data points but limits havent crossed the target value"
+                description: '<span title ="Metric has (P)assed the target for the last 6 (or more) data points, but the control limits have not moved above/below the target">Metric has (P)assed the target for the last 6 (or more) data points...</span>',
+                alt: "Metric has (P)assed the target for the last 6 (or more) data points, but the control limits have not moved above/below the target"
             }, {
                 filename: "recentfail.png",
-                description: "The system has failed the target for the past 6 data points but limits havent crossed the target value"
+                description: '<span title = "Metric has (F)ailed the target for the last 6 (or more) data points, but the control limits have not moved above/below the target">Metric has (F)ailed the target for the last 6 (or more) data points... </span>',
+                alt: "Metric has (F)ailed the target for the last 6 (or more) data points, but the control limits have not moved above/below the target"
             }
             ];
 
@@ -1100,7 +1105,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                     .attr('x', width + margin.right - 40)
                     .attr('y', 0 - margin.top)
                     .append('svg:title')
-                    .text(targeticon[targetindex].description);
+                    .text(targeticon[targetindex].alt);
             }
             var causeimage = svg.append('image')
                 .attr('xlink:href', '/extensions/' + extName + '/' + specvaricon[specindex].filename)
@@ -1138,7 +1143,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                 defTable.append("tr").append("th").text('Target');
                 defTable.append("tr").append("td").text(targetText);
                 defTable.append("tr").append("th").text('Target Achievement');
-                defTable.append("tr").append("td").text(targetAch);
+                defTable.append("tr").append("td").html(targetAch);
                 if (opt.ShowDQ == 1) {
                     var DQSCol = 'grey';
                     var DQTCol = 'grey';
