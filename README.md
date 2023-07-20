@@ -17,6 +17,7 @@ Make sure sorting is by dimension first, if it looks like the below its probably
 #### SPC Controls
 ##### Targets
 * Setting to 1 will enable targets and also the second summary icon. If measure is formatted as a percentage target will be formatted appropriately
+* Show Extra Assurance Icons: Defaults to 0, changing to 1 will enable 2 extra icons (recentfail.png and recentpass.png) that trigger when the 6 most recent points fail/pass but the limits are not yet crossing the target value
 
 ##### Settings
 * Is Higher Better?  0 = no 1 = yes 2+= neither (purple icons)
