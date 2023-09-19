@@ -392,6 +392,8 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
 
                     }
 
+                    $("#" + id).addClass('UHMB_XMR');
+
                     var qMatrix = fullData[0].qMatrix;
                     var fdata = qMatrix
                         .filter(function (f) {
