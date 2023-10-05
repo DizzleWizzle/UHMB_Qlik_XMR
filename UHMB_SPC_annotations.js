@@ -741,7 +741,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                     .on("mouseover", function (d) {
 
                         var TTValue = d.valText;
-                        var TTLeft = Math.min((margin.left + width - TTWidth), d3.select(this).attr("cx"));
+                        var TTLeft = Math.min((margin.left + width - TTWidth), d3.mouse(this)[0] + margin.left);
 
                         div.transition()
                             .duration(200)
