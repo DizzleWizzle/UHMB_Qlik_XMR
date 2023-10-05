@@ -640,8 +640,8 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             //div for tooltip
             var TTWidth = Math.min(240, width / 2);
             var div = d3.select("#" + id).append("div")
-                .attr('id', 'valuetooltip')
-                .attr("class", "tooltip")
+                .attr('id', 'valuetooltip_'+ layout.qInfo.qId)
+                .attr("class", "UHMBtooltip")
                 .style("opacity", 0)
                 .style("width", TTWidth + "px");
 
@@ -753,9 +753,9 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
 
                         var tooltipoffset;
                         if (parseInt(d3.select(this).attr("cy")) < height / 2) {
-                            tooltipoffset = (parseInt(d3.select(this).attr("cy")) + 30 + "px");
+                            tooltipoffset = (parseInt(d3.select(this).attr("cy")) + 35 + "px");
                         } else {
-                            tooltipoffset = (y(d.value) + 30 - document.getElementById('valuetooltip').clientHeight + "px");
+                            tooltipoffset = (y(d.value) + 25 - document.getElementById('valuetooltip_'+ layout.qInfo.qId).clientHeight + "px");
                         }
                         div.style("top", tooltipoffset);
                         d3.select(this).classed("highlight", true);
