@@ -99,21 +99,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                         }
 
                                     },
-                                    // CLType: {
-                                    //     type: "string",
-                                    //     component: "dropdown",
-                                    //     label: "Control Limit Type",
-                                    //     ref: "CLType",
-                                    //     options: [{
-                                    //             value: "MR",
-                                    //             label: "Moving Range"
-                                    //         }, {
-                                    //             value: "SD",
-                                    //             label: "Standard Deviation"
-                                    //         }
-                                    //     ],
-                                    //     defaultValue: "MR"
-                                    // },
+                                    
                                     CLUnder0: {
                                         ref: "ClUnderZero",
                                         type: "integer",
@@ -121,14 +107,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                         expression: "optional",
                                         defaultValue: "1"
                                     },
-                                    // StndDev: {
-                                    //     ref: "CLStDev",
-                                    //     type: "string",
-                                    //     label: "Control Limit multiple",
-                                    //     expression: "optional",
-                                    //     defaultValue: "3"
-
-                                    // },
+                                    
                                     RunLength: {
                                         ref: "runLength",
                                         type: "integer",
