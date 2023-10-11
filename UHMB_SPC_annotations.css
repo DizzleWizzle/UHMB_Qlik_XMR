@@ -51,7 +51,7 @@
   fill: red;
 }
 
-.UHMB_XMR div.tooltip {	
+.UHMB_XMR div.UHMBtooltip {	
     position: absolute;			
     text-align: left;			
   /*  width: 120px;	*/									
@@ -66,7 +66,7 @@
 	z-index:99;
 	
 }
-.UHMB_XMR div.tooltip ul {	
+.UHMB_XMR div.UHMBtooltip ul {	
     list-style-position: inside;				
     		
 }

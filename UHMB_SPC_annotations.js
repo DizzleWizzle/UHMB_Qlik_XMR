@@ -99,21 +99,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                         }
 
                                     },
-                                    // CLType: {
-                                    //     type: "string",
-                                    //     component: "dropdown",
-                                    //     label: "Control Limit Type",
-                                    //     ref: "CLType",
-                                    //     options: [{
-                                    //             value: "MR",
-                                    //             label: "Moving Range"
-                                    //         }, {
-                                    //             value: "SD",
-                                    //             label: "Standard Deviation"
-                                    //         }
-                                    //     ],
-                                    //     defaultValue: "MR"
-                                    // },
+                                    
                                     CLUnder0: {
                                         ref: "ClUnderZero",
                                         type: "integer",
@@ -121,14 +107,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                         expression: "optional",
                                         defaultValue: "1"
                                     },
-                                    // StndDev: {
-                                    //     ref: "CLStDev",
-                                    //     type: "string",
-                                    //     label: "Control Limit multiple",
-                                    //     expression: "optional",
-                                    //     defaultValue: "3"
-
-                                    // },
+                                    
                                     RunLength: {
                                         ref: "runLength",
                                         type: "integer",
@@ -640,8 +619,8 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             //div for tooltip
             var TTWidth = Math.min(240, width / 2);
             var div = d3.select("#" + id).append("div")
-                .attr('id', 'valuetooltip')
-                .attr("class", "tooltip")
+                .attr('id', 'valuetooltip_'+ layout.qInfo.qId)
+                .attr("class", "UHMBtooltip")
                 .style("opacity", 0)
                 .style("width", TTWidth + "px");
 
@@ -741,7 +720,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                     .on("mouseover", function (d) {
 
                         var TTValue = d.valText;
-                        var TTLeft = Math.min((margin.left + width - TTWidth), d3.select(this).attr("cx"));
+                        var TTLeft = Math.min((margin.left + width - TTWidth), d3.mouse(this)[0] + margin.left);
 
                         div.transition()
                             .duration(200)
@@ -753,9 +732,9 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
 
                         var tooltipoffset;
                         if (parseInt(d3.select(this).attr("cy")) < height / 2) {
-                            tooltipoffset = (parseInt(d3.select(this).attr("cy")) + 30 + "px");
+                            tooltipoffset = (parseInt(d3.select(this).attr("cy")) + 35 + "px");
                         } else {
-                            tooltipoffset = (y(d.value) + 30 - document.getElementById('valuetooltip').clientHeight + "px");
+                            tooltipoffset = (y(d.value) + 25 - document.getElementById('valuetooltip_'+ layout.qInfo.qId).clientHeight + "px");
                         }
                         div.style("top", tooltipoffset);
                         d3.select(this).classed("highlight", true);
