@@ -99,7 +99,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                         }
 
                                     },
-                                    
+
                                     CLUnder0: {
                                         ref: "ClUnderZero",
                                         type: "integer",
@@ -107,7 +107,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                                         expression: "optional",
                                         defaultValue: "1"
                                     },
-                                    
+
                                     RunLength: {
                                         ref: "runLength",
                                         type: "integer",
@@ -619,7 +619,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             //div for tooltip
             var TTWidth = Math.min(240, width / 2);
             var div = d3.select("#" + id).append("div")
-                .attr('id', 'valuetooltip_'+ layout.qInfo.qId)
+                .attr('id', 'valuetooltip_' + layout.qInfo.qId)
                 .attr("class", "UHMBtooltip")
                 .style("opacity", 0)
                 .style("width", TTWidth + "px");
@@ -734,7 +734,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                         if (parseInt(d3.select(this).attr("cy")) < height / 2) {
                             tooltipoffset = (parseInt(d3.select(this).attr("cy")) + 35 + "px");
                         } else {
-                            tooltipoffset = (y(d.value) + 25 - document.getElementById('valuetooltip_'+ layout.qInfo.qId).clientHeight + "px");
+                            tooltipoffset = (y(d.value) + 25 - document.getElementById('valuetooltip_' + layout.qInfo.qId).clientHeight + "px");
                         }
                         div.style("top", tooltipoffset);
                         d3.select(this).classed("highlight", true);
@@ -959,32 +959,32 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             var specvaricon = [{
                 filename: "speccausehighimp.png",
                 description: '<span title ="Special cause variation - improvement  (indicator where high is good)">Special cause variation - improvement...</span>',
-                alt:"Special cause variation - improvement  (indicator where high is good)"
+                alt: "Special cause variation - improvement  (indicator where high is good)"
             }, {
                 filename: "speccausehighconc.png",
                 description: '<span title = "Special cause variation - cause for concern (indicator where high is a concern)">Special cause variation - cause for concern...</span>',
-                alt:'Special cause variation - cause for concern (indicator where high is a concern)'
+                alt: 'Special cause variation - cause for concern (indicator where high is a concern)'
             }, {
                 filename: "speccauselowconc.png",
                 description: '<span title = "Special cause variation - cause for concern (indicator where low is a concern)">Special cause variation - cause for concern...</span>',
-                alt:'Special cause variation - cause for concern (indicator where low is a concern)'
+                alt: 'Special cause variation - cause for concern (indicator where low is a concern)'
             }, {
                 filename: "speccauselowimp.png",
                 description: '<span title = "Special cause variation - improvement  (indicator where low is good)">Special cause variation - improvement...</span>',
-                alt:'Special cause variation - improvement  (indicator where low is good)'
+                alt: 'Special cause variation - improvement  (indicator where low is good)'
             }, {
                 filename: "comcause.png",
                 description: "Common cause variation",
-                alt:"Common cause variation"
+                alt: "Common cause variation"
 
             }, {
                 filename: "V-Purple Up.png",
                 description: "Common cause variation",
-                alt:"Common cause variation"
+                alt: "Common cause variation"
             }, {
                 filename: "V-Purple Down.png",
                 description: "Common cause variation",
-                alt:"Common cause variation"
+                alt: "Common cause variation"
             }
             ];
 
@@ -1053,26 +1053,26 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             ];
 
             var recentCount = 0;
-            for( var q =1; q<=6; q++){
-                if ((higherbetter == true && data[data.length - q].value > targetvalue) || (higherbetter == false && data[data.length - q].value < targetvalue)) {
+            for (var q = 1; q <= 6; q++) {
+                if ((higherbetter == true && data[data.length - q].value >= targetvalue) || (higherbetter == false && data[data.length - q].value <= targetvalue)) {
                     recentCount++;
-                }else if ((higherbetter == true && data[data.length - q].value < targetvalue) || (higherbetter == false && data[data.length - q].value > targetvalue)) {
+                } else if ((higherbetter == true && data[data.length - q].value < targetvalue) || (higherbetter == false && data[data.length - q].value > targetvalue)) {
                     recentCount--;
                 }
             }
-            
+
 
             var targetindex;
-            if ((higherbetter == true && data[data.length - 1].currLCL > targetvalue) || (higherbetter == false && data[data.length - 1].currUCL < targetvalue)) {
+            if ((higherbetter == true && data[data.length - 1].currLCL >= targetvalue) || (higherbetter == false && data[data.length - 1].currUCL <= targetvalue)) {
                 targetindex = 1;
-            } else if ((higherbetter == true && data[data.length - 1].currUCL < targetvalue) || (higherbetter == false && data[data.length - 1].currLCL > targetvalue)) {
+            } else if ((higherbetter == true && data[data.length - 1].currUCL <= targetvalue) || (higherbetter == false && data[data.length - 1].currLCL >= targetvalue)) {
                 targetindex = 0;
-            } else if (recentCount == 6 && opt.extraAssurance == 1){
+            } else if (recentCount == 6 && opt.extraAssurance == 1) {
                 targetindex = 3;
-            } else if (recentCount == -6 && opt.extraAssurance == 1){
+            } else if (recentCount == -6 && opt.extraAssurance == 1) {
                 targetindex = 4;
             }
-            
+
             else {
                 targetindex = 2;
             }
