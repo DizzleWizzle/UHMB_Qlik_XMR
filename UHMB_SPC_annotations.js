@@ -1065,7 +1065,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             var targetindex;
             if ((higherbetter == true && data[data.length - 1].currLCL >= targetvalue) || (higherbetter == false && data[data.length - 1].currUCL <= targetvalue)) {
                 targetindex = 1;
-            } else if ((higherbetter == true && data[data.length - 1].currUCL <= targetvalue) || (higherbetter == false && data[data.length - 1].currLCL >= targetvalue)) {
+            } else if ((higherbetter == true && data[data.length - 1].currUCL < targetvalue) || (higherbetter == false && data[data.length - 1].currLCL > targetvalue)) {
                 targetindex = 0;
             } else if (recentCount == 6 && opt.extraAssurance == 1) {
                 targetindex = 3;
