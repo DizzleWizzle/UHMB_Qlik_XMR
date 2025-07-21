@@ -989,31 +989,29 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             ];
 
             var specindex;
-
-            if ((data[data.length - 1].check == 1 && higherbetternum > 1) || (data[data.length - 1].value > data[data.length - 1].currUCL && higherbetternum > 1)) {
+            if ((data[data.length - 1].asctrendcheck == 1 && higherbetternum > 1)) {
                 specindex = 5;
-            } else if ((data[data.length - 1].check == -1 && higherbetternum > 1) || (data[data.length - 1].value < data[data.length - 1].currLCL && higherbetternum > 1)) {
+            } else if ((data[data.length - 1].desctrendcheck == 1 && higherbetternum > 1)) {
                 specindex = 6;
-
-            } else if ((data[data.length - 1].asctrendcheck == 1 && higherbetternum > 1)) {
-                specindex = 5;
-            } else if ((data[data.length - 1].asctrendcheck == 1 && higherbetternum > 1)) {
-                specindex = 6;
-            } else if ((data[data.length - 1].check == 1 && higherbetter == true) || (data[data.length - 1].value > data[data.length - 1].currUCL && higherbetter == true)) {
-                specindex = 0;
-            } else if ((data[data.length - 1].check == -1 && higherbetter == false) || (data[data.length - 1].value < data[data.length - 1].currLCL && higherbetter == false)) {
-                specindex = 3;
-            } else if ((data[data.length - 1].check == 1 && higherbetter == false) || (data[data.length - 1].value > data[data.length - 1].currUCL && higherbetter == false)) {
-                specindex = 1;
-            } else if ((data[data.length - 1].check == -1 && higherbetter == true) || (data[data.length - 1].value < data[data.length - 1].currLCL && higherbetter == true)) {
-                specindex = 2;
             } else if (data[data.length - 1].asctrendcheck == 1 && higherbetter == true) {
                 specindex = 0;
-            } else if (data[data.length - 1].asctrendcheck == -1 && higherbetter == false) {
+            } else if (data[data.length - 1].desctrendcheck == 1 && higherbetter == false) {
                 specindex = 3;
             } else if (data[data.length - 1].asctrendcheck == 1 && higherbetter == false) {
                 specindex = 1;
-            } else if (data[data.length - 1].asctrendcheck == -1 && higherbetter == true) {
+            } else if (data[data.length - 1].desctrendcheck == 1 && higherbetter == true) {
+                specindex = 2;
+            } else if ((data[data.length - 1].check == 1 && higherbetternum > 1) ) {
+                specindex = 5;
+            } else if ((data[data.length - 1].check == -1 && higherbetternum > 1) ) {
+                specindex = 6;
+            } else if ((data[data.length - 1].check == 1 && higherbetter == true) ) {
+                specindex = 0;
+            } else if ((data[data.length - 1].check == -1 && higherbetter == false) ) {
+                specindex = 3;
+            } else if ((data[data.length - 1].check == 1 && higherbetter == false) ) {
+                specindex = 1;
+            } else if ((data[data.length - 1].check == -1 && higherbetter == true) ) {
                 specindex = 2;
             } else if (data[data.length - 1].nearUCLCheck == 1 && higherbetter == true) {
                 specindex = 0;
@@ -1023,11 +1021,64 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                 specindex = 3;
             } else if (data[data.length - 1].nearUCLCheck == 1 && higherbetter == false) {
                 specindex = 1;
+            } else if ((data[data.length - 1].value > data[data.length - 1].currUCL && higherbetternum > 1)) {
+                specindex = 5;
+            } else if ((data[data.length - 1].value < data[data.length - 1].currLCL && higherbetternum > 1)) {
+                specindex = 6;
+            } else if ( (data[data.length - 1].value > data[data.length - 1].currUCL && higherbetter == true)) {
+                specindex = 0;
+            } else if ((data[data.length - 1].value < data[data.length - 1].currLCL && higherbetter == false)) {
+                specindex = 3;
+            } else if ((data[data.length - 1].value > data[data.length - 1].currUCL && higherbetter == false)) {
+                specindex = 1;
+            } else if ((data[data.length - 1].value < data[data.length - 1].currLCL && higherbetter == true)) {
+                specindex = 2;
             }
 
             else {
                 specindex = 4;
             }
+            console.log(specindex);
+            console.log(data[data.length -1]);
+
+            // if ((data[data.length - 1].check == 1 && higherbetternum > 1) || (data[data.length - 1].value > data[data.length - 1].currUCL && higherbetternum > 1)) {
+            //     specindex = 5;
+            // } else if ((data[data.length - 1].check == -1 && higherbetternum > 1) || (data[data.length - 1].value < data[data.length - 1].currLCL && higherbetternum > 1)) {
+            //     specindex = 6;
+
+            // } else if ((data[data.length - 1].asctrendcheck == 1 && higherbetternum > 1)) {
+            //     specindex = 5;
+            // } else if ((data[data.length - 1].asctrendcheck == 1 && higherbetternum > 1)) {
+            //     specindex = 6;
+            // } else if ((data[data.length - 1].check == 1 && higherbetter == true) || (data[data.length - 1].value > data[data.length - 1].currUCL && higherbetter == true)) {
+            //     specindex = 0;
+            // } else if ((data[data.length - 1].check == -1 && higherbetter == false) || (data[data.length - 1].value < data[data.length - 1].currLCL && higherbetter == false)) {
+            //     specindex = 3;
+            // } else if ((data[data.length - 1].check == 1 && higherbetter == false) || (data[data.length - 1].value > data[data.length - 1].currUCL && higherbetter == false)) {
+            //     specindex = 1;
+            // } else if ((data[data.length - 1].check == -1 && higherbetter == true) || (data[data.length - 1].value < data[data.length - 1].currLCL && higherbetter == true)) {
+            //     specindex = 2;
+            // } else if (data[data.length - 1].asctrendcheck == 1 && higherbetter == true) {
+            //     specindex = 0;
+            // } else if (data[data.length - 1].asctrendcheck == -1 && higherbetter == false) {
+            //     specindex = 3;
+            // } else if (data[data.length - 1].asctrendcheck == 1 && higherbetter == false) {
+            //     specindex = 1;
+            // } else if (data[data.length - 1].asctrendcheck == -1 && higherbetter == true) {
+            //     specindex = 2;
+            // } else if (data[data.length - 1].nearUCLCheck == 1 && higherbetter == true) {
+            //     specindex = 0;
+            // } else if (data[data.length - 1].nearLCLCheck == 1 && higherbetter == true) {
+            //     specindex = 2;
+            // } else if (data[data.length - 1].nearLCLCheck == 1 && higherbetter == false) {
+            //     specindex = 3;
+            // } else if (data[data.length - 1].nearUCLCheck == 1 && higherbetter == false) {
+            //     specindex = 1;
+            // }
+
+            // else {
+            //     specindex = 4;
+            // }
 
             var targeticon = [{
                 filename: "consfail.png",
