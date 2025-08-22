@@ -1,4 +1,4 @@
-function processDataArray(data, runlength, trendlength, clunderzero, calcpoints, within1sigma, useBaseline) {// opt){
+function processDataArrayCH(data, runlength, trendlength, clunderzero, calcpoints, within1sigma, useBaseline) {// opt){
     var optSD = 3; //number of Sigma for CL's
     //var runlength = opt.runlength;
     //var trendlength = opt.trendlength;
@@ -32,8 +32,8 @@ function processDataArray(data, runlength, trendlength, clunderzero, calcpoints,
                 d.MR = Math.abs(d.value - trimmed[i - 1].value);
             }
         });
-        var xAvg = d3.mean(getFields(trimmed, "value"));
-        var xMR = d3.mean(getFields(trimmed, "MR"));
+        var xAvg = d3.mean(getFieldsCH(trimmed, "value"));
+        var xMR = d3.mean(getFieldsCH(trimmed, "MR"));
         var xUCL = (xMR / 1.128 * optSD) + xAvg;
         var xLCL = xAvg - (xMR / 1.128 * optSD);
         if (clunderzero == false) {
@@ -58,12 +58,12 @@ function processDataArray(data, runlength, trendlength, clunderzero, calcpoints,
         if (i > 0) {
             d.MR = d.value - data[i - 1].value;
         }
-        var meansum = meanSumCheck(data, i, runlength);
-        var revmeansum = revMeanSumCheck(data, i, runlength);
-        var trendsum = trendSumCheck(data, i, trendlength - 1);
-        var closetomean = closeToMean(data, i, within1sigma);
-        var nearUCL = nearUCLCheck(data, i, 3);
-        var nearLCL = nearLCLCheck(data, i, 3);
+        var meansum = meanSumCheckCH(data, i, runlength);
+        var revmeansum = revMeanSumCheckCH(data, i, runlength);
+        var trendsum = trendSumCheckCH(data, i, trendlength - 1);
+        var closetomean = closeToMeanCH(data, i, within1sigma);
+        var nearUCL = nearUCLCheckCH(data, i, 3);
+        var nearLCL = nearLCLCheckCH(data, i, 3);
         if (meansum == runlength || revmeansum == runlength || ((i > 0) && (data[i - 1].check == 1 && d.value > d.currAvg))) {
             d.check = 1;
         } else if (meansum == -runlength || revmeansum == -runlength || ((i > 0) && (data[i - 1].check == -1 && d.value < d.currAvg))) {
@@ -94,7 +94,7 @@ function processDataArray(data, runlength, trendlength, clunderzero, calcpoints,
     return Holding;
 }
 
-function meanSumCheck(arr, start, num) {
+function meanSumCheckCH(arr, start, num) {
     var output = 0;
     if (start + num <= arr.length) {
         for (var i = 0; i < num; i++) {
@@ -103,7 +103,7 @@ function meanSumCheck(arr, start, num) {
     }
     return output;
 }
-function revMeanSumCheck(arr, start, num) {
+function revMeanSumCheckCH(arr, start, num) {
     var output = 0;
     if (start - num >= 0) {
         for (var i = 0; i < num; i++) {
@@ -114,7 +114,7 @@ function revMeanSumCheck(arr, start, num) {
 }
 function setTrendCheck(arr, start, num) {
 }
-function trendSumCheck(arr, start, num) {
+function trendSumCheckCH(arr, start, num) {
     var output = 0;
     if (start + num < arr.length) {
         for (var i = 0; i < num; i++) {
@@ -133,7 +133,7 @@ function trendSumCheck(arr, start, num) {
     }
     return output;
 }
-function revTrendSumCheck(arr, start, num) {
+function revTrendSumCheckCH(arr, start, num) {
     var output = 0;
     if (start + num < arr.length) {
         for (var i = 0; i < num; i++) {
@@ -143,7 +143,7 @@ function revTrendSumCheck(arr, start, num) {
     return output;
 }
 
-function closeToMean(arr, start, num) {
+function closeToMeanCH(arr, start, num) {
     var output = 0;
     if (start + num < arr.length) {
         for (var i = 0; i < num; i++) {
@@ -153,17 +153,17 @@ function closeToMean(arr, start, num) {
     return output;
 
 }
-function nearUCLCheck(arr, start, num) {
+function nearUCLCheckCH(arr, start, num) {
     var output = 0;
     var abovemean = 0;
     if (start + num <= arr.length) {
         for (var i = 0; i < num; i++) {
-            output = output + ((arr[start + i].value >= 2 * arr[start + i].currSigma + arr[start + i].currAvg && arr[start + i].value <= 3 * arr[start + i].currSigma + arr[start + i].currAvg) ? 1 : 0);
+            output = output + ((arr[start + i].value >= 2 * arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : 0);
             abovemean = abovemean + ((arr[start + i].value >= arr[start + i].currAvg) ? 1 : 0);
         }
         if (output >= 2 && abovemean == 3) {
             for (var i = 0; i < num; i++) {
-                if (arr[start + i].value >= (2 * arr[start + i].currSigma + arr[start + i].currAvg) && arr[start + i].value <= (3 * arr[start + i].currSigma + arr[start + i].currAvg)) {
+                if (arr[start + i].value >= (2 * arr[start + i].currSigma + arr[start + i].currAvg) ) {
                     arr[start + i].nearUCLCheck = 1;
                 }
 
@@ -173,17 +173,17 @@ function nearUCLCheck(arr, start, num) {
     }
     return output;
 }
-function nearLCLCheck(arr, start, num) {
+function nearLCLCheckCH(arr, start, num) {
     var output = 0;
     var belowmean = 0;
     if (start + num <= arr.length) {
         for (var i = 0; i < num; i++) {
-            output = output + ((arr[start + i].value <= -2 * arr[start + i].currSigma + arr[start + i].currAvg && arr[start + i].value >= -3 * arr[start + i].currSigma + arr[start + i].currAvg) ? 1 : 0);
+            output = output + ((arr[start + i].value <= -2 * arr[start + i].currSigma + arr[start + i].currAvg ) ? 1 : 0);
             belowmean = belowmean + ((arr[start + i].value <= arr[start + i].currAvg) ? 1 : 0);
         }
         if (output >= 2 && belowmean == 3) {
             for (var i = 0; i < num; i++) {
-                if (arr[start + i].value <= (-2 * arr[start + i].currSigma + arr[start + i].currAvg) && arr[start + i].value >= -3 * arr[start + i].currSigma + arr[start + i].currAvg) {
+                if (arr[start + i].value <= (-2 * arr[start + i].currSigma + arr[start + i].currAvg) ) {
                     arr[start + i].nearLCLCheck = 1;
                 }
 
@@ -204,13 +204,13 @@ function dateFromQlikNumber(n) {
     return d;
 }
 
-function getFields(input, field) {
+function getFieldsCH(input, field) {
     var output = [];
     for (var i = 0; i < input.length; ++i)
         output.push(input[i][field]);
     return output;
 }
-function posiCheck(higherbetter, d) {
+function posiCheckCH(higherbetter, d) {
     if ((d.asctrendcheck == 1 && higherbetter == true) || (d.desctrendcheck == 1 && higherbetter == false)) {
         return "Positive";
 
@@ -247,4 +247,4 @@ function posiCheck(higherbetter, d) {
 
     }
     return "None";
-}
+};
