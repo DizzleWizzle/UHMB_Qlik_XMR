@@ -1,4 +1,4 @@
-define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_annotations.css"],
+define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctionsCH", "css!./UHMB_SPC_annotations.css"],
     function (qlik, $, d3, SPC) {
         'use strict';
         return {
@@ -484,7 +484,7 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
             var HideXAxis = opt.HideXAxis;
 
             var Holding;
-            Holding = processDataArray(data, runlength, trendlength, clunderzero, opt.calcpoints, opt.within1sigma, opt.useBaseline);
+            Holding = processDataArrayCH(data, runlength, trendlength, clunderzero, opt.calcpoints, opt.within1sigma, opt.useBaseline);
 
 
             //change margins if labels are being shown
@@ -696,19 +696,19 @@ define(["qlik", "jquery", "./d3.min", "./SPCArrayFunctions", "css!./UHMB_SPC_ann
                     .append("circle")
                     .attr("class", "dot")
                     .classed("positive", function (d) {
-                        if (posiCheck(higherbetter, d) == "Positive" && higherbetternum < 2) {
+                        if (posiCheckCH(higherbetter, d) == "Positive" && higherbetternum < 2) {
                             return true;
                         }
                         return false;
                     })
                     .classed("negative", function (d) {
-                        if (posiCheck(higherbetter, d) == "Negative" && higherbetternum < 2) {
+                        if (posiCheckCH(higherbetter, d) == "Negative" && higherbetternum < 2) {
                             return true;
                         }
                         return false;
                     })
                     .classed("purple", function (d) {
-                        if (posiCheck(higherbetternum, d) == "Purple" && higherbetternum > 1) {
+                        if (posiCheckCH(higherbetternum, d) == "Purple" && higherbetternum > 1) {
                             return true;
                         }
                         return false;
